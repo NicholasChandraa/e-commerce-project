@@ -12,7 +12,10 @@
     <div class="container mx-auto py-8 px-4">
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-3xl font-bold">Products</h1>
+            <div>
+            <a href="{{ route('home') }}" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-200">Home</a>
             <a href="{{ route('products.create') }}" class="bg-purple-600 text-white py-2 px-4 rounded hover:bg-purple-700 transition duration-200">Create Product</a>
+            </div>
         </div>
         <div class="bg-white shadow-md rounded-lg overflow-x-auto">
             <table class="min-w-full bg-white">

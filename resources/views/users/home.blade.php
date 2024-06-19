@@ -15,7 +15,7 @@
 
 <body class="bg-gray-100">
     <div class="container mx-auto py-8 px-4">
-    <nav class="bg-white shadow-md rounded-lg py-3 sm:p-4 mb-6 flex items-center justify-between">
+        <nav class="bg-white shadow-md rounded-lg py-3 sm:p-4 mb-24 flex items-center justify-between">
             <div class="flex items-center space-x-4">
                 <img src="{{ asset('images/njs-logo.png') }}" alt="Logo" class="w-0 h-0 md:w-14 md:h-8">
                 <h1 class=" text-[0px]  md:text-lg sm:text-base lg:text-2xl font-bold">Welcome, {{ Auth::user()->name }}</h1>
@@ -36,12 +36,17 @@
                 </button>
 
                 <!-- Ini untuk menu burger -->
-                <div id="menu" class="absolute -right-4 mt-32 w-38 text-sm md:text-md md:w-48 bg-white border border-gray-200 rounded-lg shadow-lg hidden">
+                <div id="menu" class="absolute right-0 sm:-right-4 mt-[205px] w-34 text-sm sm:text-md sm:w-48 bg-white border border-gray-200 rounded-lg shadow-md hidden">
                     <a href="{{ route('user.settings') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Settings</a>
                     <form action="{{ route('logout') }}" method="POST" class="block">
                         @csrf
                         <button type="submit" class="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100">Logout</button>
                     </form>
+                    @if (Auth::user()->role === 'admin')
+                    <a href="{{ route('products.index') }}"  class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                        Manage Products
+                    </a>
+                    @endif
                 </div>
             </div>
         </nav>
@@ -73,6 +78,11 @@
                             <div class="md:flex block items-center justify-between mt-4">
                                 <span class="text-xl block mb-2 md:mb-0 md:inline font-bold text-red-500">Rp{{ number_format($product->price, 0, ',', '.') }}</span>
                             </div>
+                            <form method="POST" action="{{ route('cart.add', $product->id) }}">
+                                @csrf
+                                <input type="number" name="quantity" value="1" min="1">
+                                <button type="submit">Add to Cart</button>
+                            </form>
                         </div>
                     </div>
                     @endforeach
@@ -102,6 +112,11 @@
                         <div class="flex items-center justify-between mt-4">
                             <span class="text-xl font-bold text-red-500">Rp{{ number_format($product->price, 0, ',', '.') }}</span>
                         </div>
+                        <form method="POST" action="{{ route('cart.add', $product->id) }}">
+                            @csrf
+                            <input type="number" name="quantity" value="1" min="1">
+                            <button type="submit">Add to Cart</button>
+                        </form>
                     </div>
                 </div>
                 @endforeach
