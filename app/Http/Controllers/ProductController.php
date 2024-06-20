@@ -3,19 +3,43 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::all();
-        return view('products.index', compact('products')); // compact() mirip seperti view_data yang dimana data yang diambil akan ditampung ke variable $products
+        // $products = Product::with('category')->get();
+        // $categories = Category::all();
+        
+        $query = Product::query();
+
+        // Filter berdasarkan kategori
+        if ($request->filled('category_id')) {
+            $query->where('category_id', $request->category_id);
+        }
+
+        // Pencarian Produk
+        if ($request->filled('search')) {
+            $query->where(function ($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->search . '%')
+                ->orWhere('description', 'like', '%' . $request->search . '%')
+                ->orWhere('price', 'like', '%' . $request->search . '%');
+            });
+        }
+
+        $products = $query->get();
+        $categories = Category::all();
+
+        // return view('users.home', compact('products', 'categories'));
+        return view('products.index', compact('products', 'categories')); // compact() mirip seperti view_data yang dimana data yang diambil akan ditampung ke variable $products
     }
 
     public function create()
     {
-        return view('products.create');
+        $categories = Category::all();
+        return view('products.create', compact('categories'));
     }
 
     public function store(Request $request)
@@ -25,6 +49,7 @@ class ProductController extends Controller
             'description' => 'required|string',
             'price' => 'required|numeric',
             'stock' => 'required|integer',
+            'category_id' => 'nullable|exists:categories, id',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
         ]);
 
@@ -49,7 +74,8 @@ class ProductController extends Controller
     public function edit($id)
     {
         $product = Product::findOrFail($id);
-        return view('products.edit', compact('product'));
+        $categories = Category::all();
+        return view('products.edit', compact('product', 'categories'));
     }
 
     public function update(Request $request, $id)
@@ -59,6 +85,7 @@ class ProductController extends Controller
             'description' => 'required|string',
             'price' => 'required|numeric',
             'stock' => 'required|integer',
+            'category_id' => 'nullable|exists:categories,id',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
         ]);
 

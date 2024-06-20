@@ -19,6 +19,15 @@
                     <input type="text" id="name" name="name" class="w-full p-2 border border-gray-300 rounded mt-2 focus:outline-none focus:ring-2 focus:ring-purple-600" required>
                 </div>
                 <div class="mb-4">
+                    <label for="category_id" class="block text-gray-700 font-semibold">Category</label>
+                    <select id="category_id" name="category_id">
+                        <option value="">Select Category</option>
+                        @foreach($categories as $category)
+                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="mb-4">
                     <label for="description" class="block text-gray-700 font-semibold">Description</label>
                     <textarea id="description" name="description" rows="4" class="w-full p-2 border border-gray-300 rounded mt-2 focus:outline-none focus:ring-2 focus:ring-purple-600" required></textarea>
                 </div>

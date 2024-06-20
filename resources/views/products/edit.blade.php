@@ -13,6 +13,15 @@
             <input type="text" id="name" name="name" value="{{ $product->name }}" required>
         </div>
         <div>
+            <label for="category_id">Category</label>
+            <select id="category_id" name="category_id">
+                <option value="">Select Category</option>
+                @foreach($categories as $category)
+                    <option value="{{ $category->id }}" {{ $product->category_id == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div>
             <label for="description">Description</label>
             <textarea id="description" name="description" required>{{ $product->description }}</textarea>
         </div>

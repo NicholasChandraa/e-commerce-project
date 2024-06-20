@@ -34,9 +34,9 @@ class CartController extends Controller
         }
 
         $cartItem = $cart->cartItems()->where('product_id', $product->id)->first();
-        if($cartItem) {
+        if ($cartItem) {
             $cartItem->quantity += $request->quantity;
-        }else{
+        } else {
             $cartItem = new CartItem([
                 'cart_id' => $cart->id,
                 'product_id' => $product->id,
@@ -45,8 +45,11 @@ class CartController extends Controller
         }
 
         $cartItem->save();
+        
+        // Hitung jumlah item di keranjang
+        $cartItemCount = $cart->cartItems()->count();
 
-        return redirect()->route('cart.index');
+        return response()->json(['success' => 'Product added to cart', 'cartItemCount' => $cartItemCount]);
     }
 
     public function update(Request $request, CartItem $cartItem)

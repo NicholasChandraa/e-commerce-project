@@ -9,6 +9,9 @@
         <strong>Name:</strong> {{ $product->name }}
     </div>
     <div>
+        <strong>Category:</strong> {{ $product->category->name ?  $product->category->name : "Uncategorized"}}
+    </div>
+    <div>
         <strong>Description:</strong> {{ $product->description }}
     </div>
     <div>

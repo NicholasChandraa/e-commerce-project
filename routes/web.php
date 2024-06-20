@@ -7,11 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
+use App\Http\Controllers\CategoryController;
 
 Route::get('register', [AuthController::class, 'showRegistrationForm'])->name('register');
 Route::post('register', [AuthController::class, 'register']);
@@ -24,6 +20,7 @@ Route::middleware(['auth'])->group(function () {
     // Rute untuk admin
     Route::middleware(['role:admin'])->group(function () {
         Route::resource('products', ProductController::class);
+        Route::resource('categories', CategoryController::class);
     });
 
     // Rute untuk user
@@ -31,6 +28,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/buy/{product}', [ProductController::class, 'buy'])->name('products.buy');
         
         // Route User
+        Route::get('/', [HomeController::class, 'main'])->name('main');
         Route::get('/home', [HomeController::class, 'index'])->name('home');
         Route::get('/user/profile', [UserController::class, 'showUser'])->name('user.profile');
         Route::get('/settings', [UserController::class, 'settings'])->name('user.settings');
