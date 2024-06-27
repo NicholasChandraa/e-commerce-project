@@ -7,6 +7,7 @@
     <title>Edit Kategori</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+    <link rel="icon" href="{{ asset('images/njs-logo-2.jpg') }}" type="image/x-icon">
     @vite('resources/css/app.css')
     <style>
         .modal {

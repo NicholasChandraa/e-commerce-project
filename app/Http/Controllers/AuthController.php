@@ -28,7 +28,8 @@ class AuthController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role' => 'user', //Default role is User
+            'role' => 'user', //Default rolenya adalah User
+            'profile_photo' => 'profile_photos/logo-user.png' //nambah default foto
         ]);
 
         return redirect('login');
@@ -38,7 +39,7 @@ class AuthController extends Controller
     {
         return view("auth.login");
     }
-    
+
     public function login(Request $request)
     {
         $request->validate([
@@ -46,13 +47,12 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
-        if (Auth::attempt($request->only('email', 'password')))
-        {
+        if (Auth::attempt($request->only('email', 'password'))) {
             $request->session()->regenerate(); // code ini artinya session di regenerate untuk memastikan bahwa sesi lama dihancurkan dan sesi baru dibuat. Untuk mengurangi risiko penyalahgunaan sesi.
 
             return redirect()->intended('/');
         } else {
-            return redirect('login')->with('error_message','Email atau Password Salah');
+            return redirect('login')->with('error_message', 'Email atau Password Salah');
         }
     }
 
@@ -65,5 +65,4 @@ class AuthController extends Controller
 
         return redirect('login');
     }
-
 }

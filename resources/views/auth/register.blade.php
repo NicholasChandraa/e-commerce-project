@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>NJS | Daftar</title>
     @vite('resources/css/app.css')
+    <link rel="icon" href="{{ asset('images/njs-logo-2.jpg') }}" type="image/x-icon">
 </head>
 
 <body class="bg-gray-100">
@@ -14,7 +15,7 @@
             <div class="md:w-1/2 p-5">
                 <div class="flex justify-between mb-4 mt-1 h-14 items-center">
                     <h2 class="text-2xl font-bold">Buat Akun</h2>
-                    <img src="{{ asset('images/njs-logo.png')}}" alt="NJS Logo" class="w-24 h-10">
+                    <img src="{{ asset('images/njs-logo.png') }}" alt="NJS Logo" class="w-24 h-10">
                 </div>
                 <p class="mb-4 text-center mt-8 font-bold text-xl">DAFTAR</p>
 
@@ -23,31 +24,41 @@
                     <div class="mb-4 w-full">
                         <label for="name" class="block text-gray-700">Nama</label>
                         @error('name')
-                        <span class="text-red-500 text-sm mt-2 block">{{ $message }}</span>
+                            <span class="text-red-500 text-sm mt-2 block">{{ $message }}</span>
                         @enderror
-                        <input type="text" id="name" name="name" class="w-full p-2 border border-gray-300 rounded mt-2 focus:outline-none focus:ring-2 focus:ring-purple-600" required>
+                        <input type="text" id="name" name="name"
+                            class="w-full p-2 border border-gray-300 rounded mt-2 focus:outline-none focus:ring-2 focus:ring-purple-600"
+                            required>
                     </div>
                     <div class="mb-4 w-full">
                         <label for="email" class="block text-gray-700">Email</label>
                         @error('email')
-                        <span class="text-red-500 text-sm mt-2 block">{{ $message }}</span>
+                            <span class="text-red-500 text-sm mt-2 block">{{ $message }}</span>
                         @enderror
-                        <input type="email" id="email" name="email" class="w-full p-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-purple-600" required>
+                        <input type="email" id="email" name="email"
+                            class="w-full p-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-purple-600"
+                            required>
                     </div>
                     <div class="mb-4 w-full">
                         <label for="password" class="block text-gray-700">Password</label>
                         @error('password')
-                        <span class="text-red-500 text-sm mt-2 block">{{ $message }}</span>
+                            <span class="text-red-500 text-sm mt-2 block">{{ $message }}</span>
                         @enderror
-                        <input type="password" id="password" name="password" class="w-full p-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-purple-600" required>
+                        <input type="password" id="password" name="password"
+                            class="w-full p-2 border border-gray-300 rounded mt-1 focus:outline-none focus:ring-2 focus:ring-purple-600"
+                            required>
                     </div>
                     <div class="mb-4 w-full">
                         <label for="password_confirmation" class="block text-gray-700">Konfirmasi Password</label>
-                        <input type="password" id="password_confirmation" name="password_confirmation" class="w-full p-2 border border-gray-300 rounded mt-2 focus:outline-none focus:ring-2 focus:ring-purple-600" required>
+                        <input type="password" id="password_confirmation" name="password_confirmation"
+                            class="w-full p-2 border border-gray-300 rounded mt-2 focus:outline-none focus:ring-2 focus:ring-purple-600"
+                            required>
                     </div>
-                    <button type="submit" class="w-44 bg-[#cd15bd] text-white py-2 rounded-xl hover:bg-fuchsia-700 transition duration-200">Daftar</button>
+                    <button type="submit"
+                        class="w-44 bg-[#cd15bd] text-white py-2 rounded-xl hover:bg-fuchsia-700 transition duration-200">Daftar</button>
                 </form>
-                <p class="mt-2 text-center">Sudah punya akun? <a href="{{ url('login') }}" class="text-purple-600 text-[cd15bd]">Log In</a></p>
+                <p class="mt-2 text-center">Sudah punya akun? <a href="{{ url('login') }}"
+                        class="text-purple-600 text-[cd15bd]">Log In</a></p>
             </div>
             <div class="md:w-1/2 flex justify-center items-center p-5">
                 <img src="{{ asset('images/gambar-login2.jpg') }}" alt="NJS ZX-1 V2" class="h-full">

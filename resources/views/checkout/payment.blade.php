@@ -24,6 +24,7 @@
         }
     </script>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="icon" href="{{ asset('images/njs-logo-2.jpg') }}" type="image/x-icon">
 </head>
 
 <body class="flex items-center justify-center min-h-screen bg-gray-100">

@@ -90,9 +90,4 @@
 
     @include('layouts.article')
     @include('layouts.footer')
-
 @endsection
-@vite('resources/js/app.js')
-</body>
-
-</html>

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Payment Failed</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="icon" href="{{ asset('images/njs-logo-2.jpg') }}" type="image/x-icon">
 </head>
 
 <body class="bg-gray-100 flex items-center justify-center h-screen">

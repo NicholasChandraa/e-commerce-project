@@ -7,7 +7,7 @@
     <title>@yield('title', 'NJS Helmet Page')</title>
     @vite('resources/css/app.css')
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-    <link rel="icon" href="{{ asset('images/njs-logo.png') }}" type="image/x-icon">
+    <link rel="icon" href="{{ asset('images/njs-logo-2.jpg') }}" type="image/x-icon">
 </head>
 <style>
     #jumbotron {
@@ -222,6 +222,7 @@
             attachPaginationEvents();
         });
     </script>
+    @vite('resources/js/app.js')
 </body>
 
 </html>

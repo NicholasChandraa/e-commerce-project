@@ -189,4 +189,3 @@
     </script>
     @include('layouts.footer')
 @endsection
-@vite('resources/js/app.js')

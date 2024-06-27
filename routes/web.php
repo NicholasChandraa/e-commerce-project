@@ -32,7 +32,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('products/{product}', [ProductController::class, 'show'])->name('products.show');
 
         // Route User
+        Route::get('/main', [HomeController::class, 'main'])->name('main');
         Route::get('/', [HomeController::class, 'main'])->name('main');
+
         Route::get('/home', [HomeController::class, 'index'])->name('home');
         Route::get('/user/profile', [UserController::class, 'showUser'])->name('user.profile');
         Route::get('/settings', [UserController::class, 'settings'])->name('user.settings');
