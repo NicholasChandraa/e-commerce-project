@@ -45,11 +45,11 @@ class CartController extends Controller
         }
 
         $cartItem->save();
-        
+
         // Hitung jumlah item di keranjang
         $cartItemCount = $cart->cartItems()->count();
 
-        return response()->json(['success' => 'Product added to cart', 'cartItemCount' => $cartItemCount]);
+        return response()->json(['success' => 'Produk berhasil ditambahkan ke keranjang', 'cartItemCount' => $cartItemCount]);
     }
 
     public function update(Request $request, CartItem $cartItem)

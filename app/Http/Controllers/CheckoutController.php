@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Http\Controllers;
 
@@ -20,11 +20,18 @@ class CheckoutController extends Controller
         $this->midtrans = $midtrans;
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
         $cart = $user->cart;
-        return view('checkout.index', compact('user', 'cart'));
+
+        // Ambil order_id dari session jika ada
+        $order = null;
+        if ($request->session()->has('order_id')) {
+            $order = Order::find($request->session()->get('order_id'));
+        }
+
+        return view('checkout.index', compact('user', 'cart', 'order'));
     }
 
     public function store(Request $request)
@@ -45,7 +52,7 @@ class CheckoutController extends Controller
             return redirect()->route('home')->with('error', 'Your cart is empty.');
         }
 
-        $totalAmount = $cart->cartItems->sum(function($cartItem) {
+        $totalAmount = $cart->cartItems->sum(function ($cartItem) {
             return $cartItem->product->price * $cartItem->quantity;
         });
 
@@ -98,6 +105,9 @@ class CheckoutController extends Controller
             $snapTransaction = $this->midtrans->createTransaction($params);
             $snapToken = $snapTransaction->token;
             Log::info('Midtrans Snap Token: ' . $snapToken);
+
+            // Simpan order_id dalam session
+            $request->session()->put('order_id', $order->id);
         } catch (\Exception $e) {
             return back()->withErrors(['message' => 'Payment failed: ' . $e->getMessage()]);
         }

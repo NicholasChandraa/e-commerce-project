@@ -13,8 +13,8 @@ class UserController extends Controller
         $user = Auth::user();
         return view('users.userProfile', compact('user'));
     }
-    
-    
+
+
     public function settings()
     {
         $user = Auth::user();
@@ -30,20 +30,20 @@ class UserController extends Controller
             'address' => 'nullable|string|max:255',
             'city' => 'nullable|string|max:255',
             'postal_code' => 'nullable|string|max:10',
-            'profile_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
+            'profile_photo' => 'nullable|image|mimes:jpeg,png,webp,jpg,gif,svg',
         ]);
 
         $user = Auth::user();
-        $user->update(array_filter($request->only(['name','email','phone','address','city','postal_code'])));
+        $data = $request->only(['name', 'email', 'phone', 'address', 'city', 'postal_code']);
+        $filteredData = array_filter($data);
 
         if ($request->hasFile('profile_photo')) {
             $profilePhotoPath = $request->file('profile_photo')->store('profile_photos', 'public');
-            $data['profile_photo'] = $profilePhotoPath;
+            $filteredData['profile_photo'] = $profilePhotoPath;
         }
 
-        $user->update($data);
+        $user->update($filteredData);
 
         return redirect()->route('user.settings')->with('success', 'Settings updated successfully.');
     }
-    
 }

@@ -50,7 +50,7 @@ class AuthController extends Controller
         {
             $request->session()->regenerate(); // code ini artinya session di regenerate untuk memastikan bahwa sesi lama dihancurkan dan sesi baru dibuat. Untuk mengurangi risiko penyalahgunaan sesi.
 
-            return redirect()->intended('/home');
+            return redirect()->intended('/');
         } else {
             return redirect('login')->with('error_message','Email atau Password Salah');
         }

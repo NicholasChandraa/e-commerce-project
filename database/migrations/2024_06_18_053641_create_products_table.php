@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('description');
-            $table->decimal('price', 8, 2);
+            $table->decimal('price', 8, 2); // INI DIDATABASE SUDAH DIGANTI JADI 10,2
             $table->integer('stock');
             $table->timestamps();
         });
