@@ -121,7 +121,7 @@
                 <div class="mb-4">
                     <label for="price" class="block text-gray-700 font-semibold">Harga dalam rupiah (Rp.)</label>
                     <input type="text" id="price" name="price"
-                        value="{{ number_format($product->price, 0, ',', '.') }}"
+                        value="{{ number_format($product->price, 0, ',', '') }}"
                         class="w-full p-2 border border-gray-300 rounded mt-2 focus:outline-none focus:ring-2 focus:ring-purple-600"
                         required>
                 </div>
