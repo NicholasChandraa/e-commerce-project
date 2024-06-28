@@ -48,7 +48,8 @@
                 <a href="{{ route('main') }}" class="text-gray-700 hover:text-purple-500">
                     Home
                 </a>
-                <a href="{{ url('/cart') }}" class="text-gray-700 hover:text-purple-500 text-center">
+                <a href="{{ url('/cart') }}"
+                    class="text-gray-700 hover:text-purple-500 text-center md:pr-2 lg:pr-0 pr-0">
                     Keranjang (
                     <span id="cart-count">
                         {{ $cart ? $cart->cartItems->count() : 0 }}
