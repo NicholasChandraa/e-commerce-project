@@ -108,153 +108,158 @@
 
         <!-- Table Produk -->
         <div class="bg-white shadow-lg rounded-lg overflow-hidden">
-            <table class="min-w-full bg-white responsive-table">
-                <thead class="bg-gray-800 text-white">
-                    <tr>
-                        @php
-                            $columns = [
-                                'name' => 'Nama',
-                                'category_id' => 'Kategori',
-                                'description' => 'Deskripsi',
-                                'price' => 'Harga',
-                                'stock' => 'Stok',
-                                'created_at' => 'Tanggal',
-                            ];
+            <div class="overflow-x-auto">
+                <table class="min-w-full bg-white responsive-table">
+                    <thead class="bg-gray-800 text-white">
+                        <tr>
+                            @php
+                                $columns = [
+                                    'name' => 'Nama',
+                                    'category_id' => 'Kategori',
+                                    'description' => 'Deskripsi',
+                                    'price' => 'Harga',
+                                    'stock' => 'Stok',
+                                    'created_at' => 'Tanggal',
+                                ];
 
-                            $sort_icon_asc = 'fas fa-sort-up';
-                            $sort_icon_desc = 'fas fa-sort-down';
-                        @endphp
+                                $sort_icon_asc = 'fas fa-sort-up';
+                                $sort_icon_desc = 'fas fa-sort-down';
+                            @endphp
 
-                        <th class="py-3 px-4 text-left">
-                            <a href="{{ url('/products?') . http_build_query(request()->except('sort_by', 'sort_order') + ['sort_by' => 'name', 'sort_order' => $sort_by == 'name' && $sort_order == 'asc' ? 'desc' : 'asc']) }}"
-                                class="flex items-center">
-                                Nama
-                                @if ($sort_by == 'name')
-                                    @if ($sort_order == 'asc')
-                                        <i class="{{ $sort_icon_asc }} ml-1"></i>
+                            <th class="py-3 px-4 text-left">
+                                <a href="{{ url('/products?') . http_build_query(request()->except('sort_by', 'sort_order') + ['sort_by' => 'name', 'sort_order' => $sort_by == 'name' && $sort_order == 'asc' ? 'desc' : 'asc']) }}"
+                                    class="flex items-center">
+                                    Nama
+                                    @if ($sort_by == 'name')
+                                        @if ($sort_order == 'asc')
+                                            <i class="{{ $sort_icon_asc }} ml-1"></i>
+                                        @else
+                                            <i class="{{ $sort_icon_desc }} ml-1"></i>
+                                        @endif
                                     @else
-                                        <i class="{{ $sort_icon_desc }} ml-1"></i>
+                                        <i class="fas fa-sort ml-1"></i>
                                     @endif
-                                @else
-                                    <i class="fas fa-sort ml-1"></i>
-                                @endif
-                            </a>
-                        </th>
-                        <th class="py-3 px-4 text-left">
-                            <a href="{{ url('/products?') . http_build_query(request()->except('sort_by', 'sort_order') + ['sort_by' => 'category_id', 'sort_order' => $sort_by == 'category_id' && $sort_order == 'asc' ? 'desc' : 'asc']) }}"
-                                class="flex items-center">
-                                Kategori
-                                @if ($sort_by == 'category_id')
-                                    @if ($sort_order == 'asc')
-                                        <i class="{{ $sort_icon_asc }} ml-1"></i>
+                                </a>
+                            </th>
+                            <th class="py-3 px-4 text-left">
+                                <a href="{{ url('/products?') . http_build_query(request()->except('sort_by', 'sort_order') + ['sort_by' => 'category_id', 'sort_order' => $sort_by == 'category_id' && $sort_order == 'asc' ? 'desc' : 'asc']) }}"
+                                    class="flex items-center">
+                                    Kategori
+                                    @if ($sort_by == 'category_id')
+                                        @if ($sort_order == 'asc')
+                                            <i class="{{ $sort_icon_asc }} ml-1"></i>
+                                        @else
+                                            <i class="{{ $sort_icon_desc }} ml-1"></i>
+                                        @endif
                                     @else
-                                        <i class="{{ $sort_icon_desc }} ml-1"></i>
+                                        <i class="fas fa-sort ml-1"></i>
                                     @endif
-                                @else
-                                    <i class="fas fa-sort ml-1"></i>
-                                @endif
-                            </a>
-                        </th>
-                        <th class="py-3 px-4 text-left">Deskripsi</th>
-                        <th class="py-3 px-4 text-left">
-                            <a href="{{ url('/products?') .
-                                http_build_query(
-                                    request()->except('sort_by', 'sort_order') + [
-                                        'sort_by' => 'price',
-                                        'sort_order' =>
-                                            $sort_by == 'price' &&
-                                            $sort_order ==
-                                                'asc
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    '
-                                                ? 'desc'
-                                                : 'asc',
-                                    ],
-                                ) }}"
-                                class="flex items-center">
-                                Harga
-                                @if ($sort_by == 'price')
-                                    @if ($sort_order == 'asc')
-                                        <i class="{{ $sort_icon_asc }} ml-1"></i>
+                                </a>
+                            </th>
+                            <th class="py-3 px-4 text-left">Deskripsi</th>
+                            <th class="py-3 px-4 text-left">
+                                <a href="{{ url('/products?') .
+                                    http_build_query(
+                                        request()->except('sort_by', 'sort_order') + [
+                                            'sort_by' => 'price',
+                                            'sort_order' =>
+                                                $sort_by == 'price' &&
+                                                $sort_order ==
+                                                    'asc
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    '
+                                                    ? 'desc'
+                                                    : 'asc',
+                                        ],
+                                    ) }}"
+                                    class="flex items-center">
+                                    Harga
+                                    @if ($sort_by == 'price')
+                                        @if ($sort_order == 'asc')
+                                            <i class="{{ $sort_icon_asc }} ml-1"></i>
+                                        @else
+                                            <i class="{{ $sort_icon_desc }} ml-1"></i>
+                                        @endif
                                     @else
-                                        <i class="{{ $sort_icon_desc }} ml-1"></i>
+                                        <i class="fas fa-sort ml-1"></i>
                                     @endif
-                                @else
-                                    <i class="fas fa-sort ml-1"></i>
-                                @endif
-                            </a>
-                        </th>
-                        <th class="py-3 px-4 text-left">
-                            <a href="{{ url('/products?') . http_build_query(request()->except('sort_by', 'sort_order') + ['sort_by' => 'stock', 'sort_order' => $sort_by == 'stock' && $sort_order == 'asc' ? 'desc' : 'asc']) }}"
-                                class="flex items-center">
-                                Stok
-                                @if ($sort_by == 'stock')
-                                    @if ($sort_order == 'asc')
-                                        <i class="{{ $sort_icon_asc }} ml-1"></i>
+                                </a>
+                            </th>
+                            <th class="py-3 px-4 text-left">
+                                <a href="{{ url('/products?') . http_build_query(request()->except('sort_by', 'sort_order') + ['sort_by' => 'stock', 'sort_order' => $sort_by == 'stock' && $sort_order == 'asc' ? 'desc' : 'asc']) }}"
+                                    class="flex items-center">
+                                    Stok
+                                    @if ($sort_by == 'stock')
+                                        @if ($sort_order == 'asc')
+                                            <i class="{{ $sort_icon_asc }} ml-1"></i>
+                                        @else
+                                            <i class="{{ $sort_icon_desc }} ml-1"></i>
+                                        @endif
                                     @else
-                                        <i class="{{ $sort_icon_desc }} ml-1"></i>
+                                        <i class="fas fa-sort ml-1"></i>
                                     @endif
-                                @else
-                                    <i class="fas fa-sort ml-1"></i>
-                                @endif
-                            </a>
-                        </th>
-                        <th class="py-3 px-4 text-left">
-                            <a href="{{ url('/products?') . http_build_query(request()->except('sort_by', 'sort_order') + ['sort_by' => 'created_at', 'sort_order' => $sort_by == 'created_at' && $sort_order == 'asc' ? 'desc' : 'asc']) }}"
-                                class="flex items-center">
-                                Tanggal
-                                @if ($sort_by == 'created_at')
-                                    @if ($sort_order == 'asc')
-                                        <i class="{{ $sort_icon_asc }} ml-1"></i>
+                                </a>
+                            </th>
+                            <th class="py-3 px-4 text-left">
+                                <a href="{{ url('/products?') . http_build_query(request()->except('sort_by', 'sort_order') + ['sort_by' => 'created_at', 'sort_order' => $sort_by == 'created_at' && $sort_order == 'asc' ? 'desc' : 'asc']) }}"
+                                    class="flex items-center">
+                                    Tanggal
+                                    @if ($sort_by == 'created_at')
+                                        @if ($sort_order == 'asc')
+                                            <i class="{{ $sort_icon_asc }} ml-1"></i>
+                                        @else
+                                            <i class="{{ $sort_icon_desc }} ml-1"></i>
+                                        @endif
                                     @else
-                                        <i class="{{ $sort_icon_desc }} ml-1"></i>
+                                        <i class="fas fa-sort ml-1"></i>
                                     @endif
-                                @else
-                                    <i class="fas fa-sort ml-1"></i>
-                                @endif
-                            </a>
-                        </th>
-                        <th class="py-3 px-4 text-left">Image</th>
-                        <th class="py-3 px-4 text-left">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody class="text-gray-700">
-                    @foreach ($products as $product)
-                        <tr class="border-b">
-                            <td class="py-3 px-4" data-label="Nama">{{ $product->name }}</td>
-                            <td class="py-3 px-4" data-label="Kategori">
-                                {{ $product->category ? $product->category->name : 'Uncategorized' }}</td>
-                            <td class="py-3 px-4" data-label="Deskripsi">{{ Str::limit($product->description, 50) }}
-                            </td>
-                            <td class="py-3 px-4" data-label="Harga">
-                                Rp{{ number_format($product->price, 0, ',', '.') }}</td>
-                            <td class="py-3 px-4" data-label="Stok">{{ $product->stock }}</td>
-                            <td class="py-3 px-4" data-label="Tanggal">{{ $product->created_at->format('d-m-Y') }}</td>
-                            <td class="py-3 px-4" data-label="Image">
-                                @if ($product->image)
-                                    <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}"
-                                        class="w-16 h-16 object-cover rounded-lg">
-                                @endif
-                            </td>
-                            <td class="py-3 px-4 flex flex-col space-y-2 space-x-2 md:space-x-0" data-label="Aksi">
-                                <a href="{{ route('products.show', $product->id) }}"
-                                    class="bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600 transition duration-200 text-center">
-                                    <i class="fas fa-eye"></i> View</a>
-                                <a href="{{ route('products.edit', $product->id) }}"
-                                    class="bg-yellow-500 text-white py-1 px-3 rounded hover:bg-yellow-600 transition duration-200 text-center">
-                                    <i class="fas fa-edit"></i> Edit</a>
-                                <form action="{{ route('products.destroy', $product->id) }}" method="POST"
-                                    class="inline-block">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit"
-                                        class="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600 transition duration-200 text-center delete-button">
-                                        <i class="fas fa-trash-alt"></i> Delete</button>
-                                </form>
-                            </td>
+                                </a>
+                            </th>
+                            <th class="py-3 px-4 text-left">Image</th>
+                            <th class="py-3 px-4 text-left">Aksi</th>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody class="text-gray-700">
+                        @foreach ($products as $product)
+                            <tr class="border-b">
+                                <td class="py-3 px-4" data-label="Nama">{{ $product->name }}</td>
+                                <td class="py-3 px-4" data-label="Kategori">
+                                    {{ $product->category ? $product->category->name : 'Uncategorized' }}</td>
+                                <td class="py-3 px-4" data-label="Deskripsi">
+                                    {{ Str::limit($product->description, 50) }}
+                                </td>
+                                <td class="py-3 px-4" data-label="Harga">
+                                    Rp{{ number_format($product->price, 0, ',', '.') }}</td>
+                                <td class="py-3 px-4" data-label="Stok">{{ $product->stock }}</td>
+                                <td class="py-3 px-4" data-label="Tanggal">{{ $product->created_at->format('d-m-Y') }}
+                                </td>
+                                <td class="py-3 px-4" data-label="Image">
+                                    @if ($product->image)
+                                        <img src="{{ asset('storage/' . $product->image) }}"
+                                            alt="{{ $product->name }}" class="w-16 h-16 object-cover rounded-lg">
+                                    @endif
+                                </td>
+                                <td class="py-3 px-4 flex flex-col space-y-2 space-x-2 md:space-x-0"
+                                    data-label="Aksi">
+                                    <a href="{{ route('products.show', $product->id) }}"
+                                        class="bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600 transition duration-200 text-center">
+                                        <i class="fas fa-eye"></i> View</a>
+                                    <a href="{{ route('products.edit', $product->id) }}"
+                                        class="bg-yellow-500 text-white py-1 px-3 rounded hover:bg-yellow-600 transition duration-200 text-center">
+                                        <i class="fas fa-edit"></i> Edit</a>
+                                    <form action="{{ route('products.destroy', $product->id) }}" method="POST"
+                                        class="inline-block">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit"
+                                            class="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600 transition duration-200 text-center delete-button">
+                                            <i class="fas fa-trash-alt"></i> Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
         <!-- Pagination -->
         <div class="mt-6">

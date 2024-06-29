@@ -23,14 +23,15 @@
         <div class="grid md:grid-cols-3 gap-4">
             @foreach ($latestProducts as $product)
                 <div class="bg-white p-5 shadow-md flex flex-col">
-                    <h3 class="mb-2 text-lg font-bold">{{ $product->category ? $product->category->name : 'Uncategorized' }}
+                    <h3 class="mb-2 text-lg font-bold">
+                        {{ $product->category ? $product->category->name : 'Uncategorized' }}
                     </h3>
                     <a href="{{ route('products.show', $product->id) }}" class="flex justify-center items-center h-48 mb-4">
                         <img src="{{ asset("storage/$product->image") }}" alt="{{ $product->name }}"
                             class="max-h-full max-w-full mt-auto loading="lazy">
                     </a>
-                    <h3 class="text-xl font-semibold mb-2 mt-auto">{{ $product->name }}</h3>
-                    <p class="description2 mb-4" data-full-description="{{ $product->description }}"></p>
+                    <h3 class="text-xl font-semibold mb-2 line-clamp-2">{{ $product->name }}</h3>
+                    <p class="description2 mb-4 mt-auto" data-full-description="{{ $product->description }}"></p>
                     <a href="{{ route('products.show', $product->id) }}"
                         class="bg-white hover:bg-black hover:text-white py-2 px-4  border mt-auto text-center w-1/2 mx-auto">Detail
                         Produk</a>
@@ -52,13 +53,13 @@
             </button>
 
             <div id="product-list" class="flex overflow-x-auto scroll-smooth space-x-4 pb-12">
-                @foreach ($products as $product)
+                @foreach ($AllProducts as $product)
                     <div class="bg-white p-5 shadow-md overflow-hidden w-42 md:w-80 flex-shrink-0 flex flex-col">
                         <h3 class="mb-2 text-lg font-bold">
                             {{ $product->category ? $product->category->name : 'Uncategorized' }}</h3>
                         <img src="{{ asset('storage/' . $product->image) }}" alt="Step 1"
-                            class="mx-auto h-64 w-64 lg:h-full lg:w-full mb-4 mt-auto loading="lazy">
-                        <h3 class="text-xl font-semibold mb-2 mt-auto">{{ $product->name }}</h3>
+                            class="mx-auto h-64 w-64 lg:max-h-full lg:max-w-full mb-4 mt-auto loading="lazy">
+                        <h3 class="text-xl font-semibold mb-2 mt-auto line-clamp-2">{{ $product->name }}</h3>
                         <p class="description mb-4" data-full-description="{{ $product->description }}"></p>
                         <a href="{{ route('products.show', $product->id) }}"
                             class="bg-white hover:bg-black hover:text-white border py-2 px-4 mt-auto text-center">Detail

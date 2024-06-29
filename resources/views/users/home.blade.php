@@ -93,7 +93,7 @@
                                     <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}"
                                         class="w-full h-full object-cover mb-4" />
                                 </a>
-                                <h3 class="text-lg font-bold">
+                                <h3 class="text-lg font-bold line-clamp-2">
                                     {{ $product->name }}
                                 </h3>
                                 <p class="text-gray-600 description" data-full-description="{{ $product->description }}">

@@ -27,13 +27,13 @@ class HomeController extends Controller
         if ($request->filled('search')) {
             $query->where(function ($q) use ($request) {
                 $q->where('name', 'like', '%' . $request->search . '%')
-                ->orWhere('description', 'like', '%' . $request->search . '%')
-                ->orWhere('price', 'like', '%' . $request->search . '%');
+                    ->orWhere('description', 'like', '%' . $request->search . '%')
+                    ->orWhere('price', 'like', '%' . $request->search . '%');
             });
         }
 
-         // Filter berdasarkan rentang harga
-         if ($request->filled('min_price')) {
+        // Filter berdasarkan rentang harga
+        if ($request->filled('min_price')) {
             $query->where('price', '>=', $request->min_price);
         }
         if ($request->filled('max_price')) {
@@ -41,6 +41,7 @@ class HomeController extends Controller
         }
 
         // Pagination
+        $AllProducts = Product::latest()->get();
         $products = $query->paginate(9);
         $categories = Category::all();
 
@@ -51,11 +52,11 @@ class HomeController extends Controller
                 'products' => view('partials.mainProducts', compact('products'))->render(),
                 'pagination' => (string) $products->appends($request->except('page'))->links('vendor.pagination.custom')
             ]);
-        }  
+        }
 
         $articles = Article::latest()->get();
-    
-        return view('users.main', compact('products', 'categories', 'cart', 'latestProducts', 'articles'));
+
+        return view('users.main', compact('products', 'categories', 'cart', 'latestProducts', 'articles', 'AllProducts'));
     }
     public function index(Request $request)
     {
@@ -74,13 +75,13 @@ class HomeController extends Controller
         if ($request->filled('search')) {
             $query->where(function ($q) use ($request) {
                 $q->where('name', 'like', '%' . $request->search . '%')
-                ->orWhere('description', 'like', '%' . $request->search . '%')
-                ->orWhere('price', 'like', '%' . $request->search . '%');
+                    ->orWhere('description', 'like', '%' . $request->search . '%')
+                    ->orWhere('price', 'like', '%' . $request->search . '%');
             });
         }
 
-         // Filter berdasarkan rentang harga
-         if ($request->filled('min_price')) {
+        // Filter berdasarkan rentang harga
+        if ($request->filled('min_price')) {
             $query->where('price', '>=', $request->min_price);
         }
         if ($request->filled('max_price')) {
@@ -98,7 +99,7 @@ class HomeController extends Controller
                 'total' => $products->total(),
                 'hasMorePages' => $hasMorePages
             ]);
-        }            
+        }
 
         return view('users.home', compact('products', 'categories', 'cart'));
     }

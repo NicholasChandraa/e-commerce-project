@@ -1,6 +1,8 @@
 @extends('layouts.mainLayout')
 
 @section('content')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" />
+
     <style>
         .hidden-input {
             display: none;
@@ -28,6 +30,7 @@
             background-color: rgba(0, 0, 0, 0.5);
             justify-content: center;
             align-items: center;
+            z-index: 1000;
         }
 
         .modal-content {
@@ -35,8 +38,23 @@
             padding: 2rem;
             border-radius: 0.5rem;
             text-align: center;
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow: auto;
+        }
+
+        .cropper-container {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .cropper-view-box,
+        .cropper-face {
+            border-radius: 50%;
         }
     </style>
+
     <!-- Profile Section -->
     <section class="py-16 mb-[100px]">
         <div class="container mx-auto px-4 lg:flex lg:space-x-16">
@@ -138,14 +156,45 @@
         </div>
     </div>
 
+    <!-- NEW: Crop Modal -->
+    <div id="cropModal" class="modal flex">
+        <div class="modal-content">
+            <h3 class="text-xl font-bold mb-4">Crop Foto</h3>
+            <div>
+                <img id="cropImage" style="max-width: 100%;" />
+            </div>
+            <div class="flex justify-center space-x-4 mt-4">
+                <button onclick="hideCropModal()" class="bg-gray-200 text-gray-600 px-4 py-2 rounded">Cancel</button>
+                <button onclick="cropImage()" class="bg-purple-600 text-white px-4 py-2 rounded">Crop</button>
+            </div>
+        </div>
+    </div>
+
+    @include('layouts.footer')
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
     <script>
+        let cropper;
+
         function previewProfilePhoto(event) {
             const input = event.target;
             const reader = new FileReader();
             reader.onload = function() {
                 const dataURL = reader.result;
-                const output = document.getElementById('newProfilePhotoPreview');
-                output.src = dataURL;
+                const image = document.getElementById('cropImage');
+                image.src = dataURL;
+                showCropModal();
+                cropper = new Cropper(image, {
+                    aspectRatio: 1,
+                    viewMode: 1,
+                    autoCropArea: 1,
+                    movable: true,
+                    zoomable: true,
+                    rotatable: true,
+                    scalable: true,
+                    responsive: true,
+                    cropBoxResizable: true,
+                });
             };
             reader.readAsDataURL(input.files[0]);
         }
@@ -175,6 +224,40 @@
             }
         }
 
+        function showCropModal() {
+            document.getElementById('cropModal').style.display = 'flex';
+        }
+
+        function hideCropModal() {
+            document.getElementById('cropModal').style.display = 'none';
+            if (cropper) {
+                cropper.destroy();
+                cropper = null;
+            }
+        }
+
+        function cropImage() {
+            const canvas = cropper.getCroppedCanvas({
+                width: 400,
+                height: 400,
+            });
+            canvas.toBlob((blob) => {
+                const url = URL.createObjectURL(blob);
+                const output = document.getElementById('newProfilePhotoPreview');
+                output.src = url;
+
+                const fileInput = document.getElementById('profile_photo');
+                const dataTransfer = new DataTransfer();
+                const file = new File([blob], 'cropped.jpg', {
+                    type: 'image/jpeg'
+                });
+                dataTransfer.items.add(file);
+                fileInput.files = dataTransfer.files;
+
+                hideCropModal();
+            }, 'image/jpeg');
+        }
+
         function showConfirmationModal() {
             document.getElementById('confirmationModal').style.display = 'flex';
         }
@@ -187,5 +270,4 @@
             document.getElementById('profileForm').submit();
         }
     </script>
-    @include('layouts.footer')
 @endsection

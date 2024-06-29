@@ -89,7 +89,7 @@
                             </a>
                             <div class="mt-5">
                                 <p class="text-gray-500 text-sm mb-2">{{ $article->created_at->format('F j, Y') }}</p>
-                                <a href="{{ route('articlePages.show', $article->id) }}">
+                                <a href="{{ route('articlePages.show', $article->id) }}" class="line-clamp-2">
                                     <h3 class="text-xl font-bold">{{ $article->title }}</h3>
                                 </a>
                                 <p class="text-gray-600 mt-2 pr-4">{{ $article->author }} -
@@ -110,7 +110,7 @@
                                 </div>
                                 <div class="px-1">
                                     <p class="text-gray-500 text-sm">{{ $article->created_at->format('F j, Y') }}</p>
-                                    <a href="{{ route('articlePages.show', $article->id) }}">
+                                    <a href="{{ route('articlePages.show', $article->id) }}" class="line-clamp-2">
                                         <h4 class="text-lg font-bold">{{ $article->title }}</h4>
                                     </a>
                                     <p class="text-gray-500 text-sm">{{ $article->author }} -

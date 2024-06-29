@@ -109,7 +109,8 @@ class CheckoutController extends Controller
             // Simpan order_id dalam session
             $request->session()->put('order_id', $order->id);
         } catch (\Exception $e) {
-            return back()->withErrors(['message' => 'Payment failed: ' . $e->getMessage()]);
+            Log::error('Payment failed: ' . $e->getMessage());
+            return redirect()->route('checkout.index')->with('error', 'Payment failed: ' . $e->getMessage());
         }
 
         return view('checkout.payment', compact('snapToken', 'order'));

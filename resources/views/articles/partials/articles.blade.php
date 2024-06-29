@@ -8,7 +8,7 @@
             </a>
             <div class="mt-5">
                 <p class="text-gray-500 text-sm mb-2">{{ $article->created_at->format('F j, Y') }}</p>
-                <a href="{{ route('articlePages.show', $article->id) }}">
+                <a href="{{ route('articlePages.show', $article->id) }}" class="line-clamp-2">
                     <h3 class="text-xl font-bold">{{ $article->title }}</h3>
                 </a>
                 <p class="text-gray-600 mt-2">{{ $article->author }} - {{ Str::limit($article->content, 185) }}.</p>
