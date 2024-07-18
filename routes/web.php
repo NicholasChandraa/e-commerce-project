@@ -10,6 +10,7 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ArticleCategoryController;
+use App\Http\Controllers\SettingsController;
 
 Route::get('register', [AuthController::class, 'showRegistrationForm'])->name('register');
 Route::post('register', [AuthController::class, 'register']);
@@ -70,5 +71,11 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/about', function () {
             return view('users.about');
         })->name('about');
+
+        // Rute Account Settings
+        Route::get('/account/settings/change-password', [SettingsController::class, 'changePasswordForm'])->name('account.settings.changePasswordForm');
+        Route::post('/account/settings/change-password', [SettingsController::class, 'changePassword'])->name('account.settings.changePassword');
+        Route::get('/account/settings/feedback', [SettingsController::class, 'feedbackForm'])->name('account.settings.feedbackForm');
+        Route::post('/account/settings/feedback', [SettingsController::class, 'sendFeedback'])->name('account.settings.sendFeedback');
     });
 });

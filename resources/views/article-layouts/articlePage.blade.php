@@ -55,7 +55,7 @@
         <div id="menu" class="hidden md:w-full bg-white shadow-md py-3 sm:p-4 mb-4 space-y-4 relative">
             <ul>
                 <li><a href="{{ route('user.profile') }}"
-                        class="block px-4 py-2 text-gray-700 hover:bg-purple-50">Profile</a></li>
+                        class="block px-4 py-2 text-gray-700 hover:bg-purple-50">Settings</a></li>
                 @if (Auth::user()->role === 'admin')
                     <li><a href="{{ route('products.index') }}"
                             class="block px-4 py-2 text-gray-700 hover:bg-purple-50">Manage Products</a></li>

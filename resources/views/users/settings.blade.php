@@ -55,6 +55,23 @@
         }
     </style>
 
+<div class="flex min-h-screen">
+     <!-- Sidebar -->
+     <div class="inset-y-0 left-0 transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out z-20">
+
+        @include('settings.layouts.sidebar')
+    </div>
+
+        <!-- Overlay -->
+        <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-10 hidden"></div>
+
+    <!-- Main Content -->
+    <div class="flex-1 relative">
+        <!-- Burger Menu Button -->
+        <button id="burger" class="md:hidden bg-white p-2 w-full text-start z-50">
+            <i class="fas fa-bars"></i>
+        </button>
+
     <!-- Profile Section -->
     <section class="py-16 mb-[100px]">
         <div class="container mx-auto px-4 lg:flex lg:space-x-16">
@@ -169,12 +186,42 @@
             </div>
         </div>
     </div>
+        
+    </div>
+</div>
 
-    @include('layouts.footer')
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
-    <script>
-        let cropper;
+@include('layouts.footer')
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+<!-- JavaScript to handle the burger menu and modal -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const burger = document.getElementById('burger');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+
+            burger.addEventListener('click', function() {
+                sidebar.classList.toggle('hidden');
+                sidebar.classList.toggle('block');
+                overlay.classList.toggle('hidden');
+            });
+
+            overlay.addEventListener('click', function() {
+                sidebar.classList.add('hidden');
+                sidebar.classList.remove('block');
+                overlay.classList.add('hidden');
+            });
+
+        // Close modal when clicking outside
+        confirmModal.addEventListener('click', function(event) {
+            if (event.target === confirmModal) {
+                confirmModal.classList.add('hidden');
+            }
+        });
+    });
+
+    let cropper;
 
         function previewProfilePhoto(event) {
             const input = event.target;
@@ -269,5 +316,5 @@
         function submitForm() {
             document.getElementById('profileForm').submit();
         }
-    </script>
+</script>
 @endsection

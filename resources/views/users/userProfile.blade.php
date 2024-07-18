@@ -15,7 +15,7 @@
         .modal {
             display: none;
             position: fixed;
-            z-index: 1;
+            z-index: 50;
             left: 0;
             top: 0;
             width: 100%;
@@ -66,98 +66,127 @@
         }
     </style>
 
-    <!-- Profile Section -->
-    <section class="pb-[50px] bg-white">
-        <div class="profile-header"></div>
-        <div class="container mx-auto px-4 lg:px-0 py-8">
-            <div class="lg:flex-col">
-                <!-- Profile Information -->
-                <div class="text-center mb-8 lg:mb-0">
-                    <div class="profile-avatar">
-                        <img id="profilePhoto" class="rounded-full w-32 h-32 mx-auto cursor-pointer"
-                            src="{{ asset('storage/' . $user->profile_photo) }}" alt="{{ $user->name }}">
+    <div class="flex min-h-screen">
+        <!-- Sidebar -->
+        <div class="inset-y-0 left-0 transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out z-20">
+            @include('settings.layouts.sidebar')
+        </div>
+
+        <!-- Overlay -->
+        <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-10 hidden"></div>
+
+        <!-- Main Content -->
+        <div class="flex-1 relative">
+            <!-- Burger Menu Button -->
+            <button id="burger" class="md:hidden bg-white p-2 w-full text-start z-50">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <section class="pb-[50px] bg-white">
+                <div class="profile-header"></div>
+                <div class="container mx-auto px-4 lg:px-0 py-8">
+                    <div class="lg:flex-col">
+                        <!-- Profile Information -->
+                        <div class="text-center mb-8 lg:mb-0">
+                            <div class="profile-avatar">
+                                <img id="profilePhoto" class="rounded-full w-32 h-32 mx-auto cursor-pointer"
+                                    src="{{ asset('storage/' . $user->profile_photo) }}" alt="{{ $user->name }}">
+                            </div>
+                            <h2 class="text-3xl font-bold mt-4">{{ $user->name }}</h2>
+                            <p class="text-gray-500">{{ $user->email }}</p>
+                        </div>
+                        <!-- Additional Information -->
+                        <div class="lg:w-2/3 bg-white p-8 rounded-lg  mx-auto mt-3">
+                            <h3 class="text-2xl font-bold mb-4">Personal Info</h3>
+                            <p class="text-gray-500 mb-8">You can change your personal information by clicking the edit profile
+                                button.</p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <h4 class="text-lg font-bold mb-2">Nama Lengkap</h4>
+                                    <p class="text-gray-700 border rounded-lg p-3">{{ $user->name }}</p>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-bold mb-2">Email</h4>
+                                    <p class="text-gray-700 border rounded-lg p-3">{{ $user->email }}</p>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-bold mb-2">No. Handphone</h4>
+                                    <p class="text-gray-700 border rounded-lg p-3">{{ $user->phone }}</p>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-bold mb-2">Tipe Akun</h4>
+                                    <p class="text-gray-700 border rounded-lg p-3">{{ Auth::user()->role }}</p>
+                                </div>
+                                <div class="md:col-span-2">
+                                    <h4 class="text-lg font-bold mb-2">Address</h4>
+                                    <p class="text-gray-700 border rounded-lg p-3">{{ $user->address }}</p>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-bold mb-2">City</h4>
+                                    <p class="text-gray-700 border rounded-lg p-3">{{ $user->city }}</p>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-bold mb-2">Postal Code</h4>
+                                    <p class="text-gray-700 border rounded-lg p-3">{{ $user->postal_code }}</p>
+                                </div>
+                            </div>
+                            <div class="flex justify-end mt-8">
+                                <a href="{{ route('user.settings') }}" class="bg-gray-200 text-gray-600 px-4 py-2 rounded">Edit
+                                    Profile</a>
+                            </div>
+                        </div>
                     </div>
-                    <h2 class="text-3xl font-bold mt-4">{{ $user->name }}</h2>
-                    <p class="text-gray-500">{{ $user->email }}</p>
                 </div>
-                <!-- Additional Information -->
-                <div class="lg:w-2/3 bg-white p-8 rounded-lg  mx-auto mt-3">
-                    <h3 class="text-2xl font-bold mb-4">Personal Info</h3>
-                    <p class="text-gray-500 mb-8">You can change your personal information by clicking the edit profile
-                        button.</p>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <h4 class="text-lg font-bold mb-2">Nama Lengkap</h4>
-                            <p class="text-gray-700 border rounded-lg p-3">{{ $user->name }}</p>
-                        </div>
-                        <div>
-                            <h4 class="text-lg font-bold mb-2">Email</h4>
-                            <p class="text-gray-700 border rounded-lg p-3">{{ $user->email }}</p>
-                        </div>
-                        <div>
-                            <h4 class="text-lg font-bold mb-2">No. Handphone</h4>
-                            <p class="text-gray-700 border rounded-lg p-3">{{ $user->phone }}</p>
-                        </div>
-                        <div>
-                            <h4 class="text-lg font-bold mb-2">Tipe Akun</h4>
-                            <p class="text-gray-700 border rounded-lg p-3">{{ Auth::user()->role }}</p>
-                        </div>
-                        <div class="md:col-span-2">
-                            <h4 class="text-lg font-bold mb-2">Address</h4>
-                            <p class="text-gray-700 border rounded-lg p-3">{{ $user->address }}</p>
-                        </div>
-                        <div>
-                            <h4 class="text-lg font-bold mb-2">City</h4>
-                            <p class="text-gray-700 border rounded-lg p-3">{{ $user->city }}</p>
-                        </div>
-                        <div>
-                            <h4 class="text-lg font-bold mb-2">Postal Code</h4>
-                            <p class="text-gray-700 border rounded-lg p-3">{{ $user->postal_code }}</p>
-                        </div>
-                    </div>
-                    <div class="flex justify-end mt-8">
-                        <a href="{{ route('user.settings') }}" class="bg-gray-200 text-gray-600 px-4 py-2 rounded">Edit
-                            Profile</a>
-                    </div>
+            </section>
+
+            <!-- The Modal -->
+            <div id="photoModal" class="modal flex">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <img src="{{ asset('storage/' . $user->profile_photo) }}" alt="{{ $user->name }}">
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- The Modal -->
-    <div id="photoModal" class="modal flex">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <img src="{{ asset('storage/' . $user->profile_photo) }}" alt="{{ $user->name }}">
         </div>
     </div>
 
     @include('layouts.footer')
 
+    <!-- JavaScript to handle the burger menu and modal -->
     <script>
-        // Get the modal
-        var modal = document.getElementById("photoModal");
+        document.addEventListener('DOMContentLoaded', function() {
+            const burger = document.getElementById('burger');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            const profilePhoto = document.getElementById('profilePhoto');
+            const modal = document.getElementById('photoModal');
+            const closeModal = document.querySelector(".close");
 
-        // Get gambar dan masukkin ke modal
-        var img = document.getElementById("profilePhoto");
-        var modalImg = document.querySelector(".modal-content img");
-        img.onclick = function() {
-            modal.style.display = "flex";
-        }
+            burger.addEventListener('click', function() {
+                sidebar.classList.toggle('hidden');
+                sidebar.classList.toggle('block');
+                overlay.classList.toggle('hidden');
+            });
 
-        // span buat close modal
-        var span = document.getElementsByClassName("close")[0];
+            overlay.addEventListener('click', function() {
+                sidebar.classList.add('hidden');
+                sidebar.classList.remove('block');
+                overlay.classList.add('hidden');
+            });
 
-        // close modal pada saat klik (x)
-        span.onclick = function() {
-            modal.style.display = "none";
-        }
+            profilePhoto.addEventListener('click', function() {
+                modal.style.display = "flex";
+            });
 
-        // fungsi untuk close modal pada saat user klik area diluar modal
-        window.onclick = function(event) {
-            if (event.target == modal) {
+            closeModal.addEventListener('click', function() {
                 modal.style.display = "none";
-            }
-        }
+            });
+
+            window.addEventListener('click', function(event) {
+                if (event.target === modal) {
+                    modal.style.display = "none";
+                }
+            });
+        });
     </script>
+
 @endsection

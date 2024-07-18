@@ -66,7 +66,7 @@
                         <li>
                             <a href="{{ route('user.profile') }}"
                                 class="block px-4 py-2 text-gray-700 hover:bg-purple-50">
-                                Profile
+                                Settings
                             </a>
                         </li>
                         @if (Auth::user()->role === 'admin')
