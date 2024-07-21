@@ -42,7 +42,7 @@
 
     <!-- List produk -->
     <div class="container mx-auto">
-        <h2 class="text-2xl font-bold mb-4 bg-white p-6 shadow-md">Semua Produk</h2>
+        <h2 class="text-2xl font-bold mb-4 bg-white p-6 shadow-md">Rekomendasi</h2>
         <div class="relative">
             <button id="prev"
                 class="absolute left-0 top-1/3 transform -translate-y-1/2 bg-white border border-gray-300 p-2 rounded-full shadow-md focus:outline-none">
@@ -80,6 +80,7 @@
     <!-- Semua Produk -->
     <section class="bg-white py-10">
         <div class="container mx-auto">
+            <h2 class="text-2xl font-bold mb-4 bg-white p-6 shadow-md">Semua Produk</h2>
             <div id="product-list2">
                 @include('partials.mainProducts', ['products' => $products])
             </div>

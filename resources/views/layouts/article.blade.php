@@ -14,7 +14,7 @@
         <div class="container mx-auto p-4 sm:p-0">
             @foreach ($articles as $article)
                 @if ($article->id == 23)
-                    <div class="py-5">
+                    <div class="py-5 md:px-[25px]">
                         <h2 class="text-xl font-bold">{{ $article->title }}</h2>
                         <p class="text-gray-600 text-sm">{{ $article->author }} •
                             {{ $article->created_at->diffForHumans() }} • {{ $article->category->name }}</p>
@@ -94,7 +94,7 @@
 <!-- Main Content -->
 <main class="container mx-auto">
     <!-- Lainnya -->
-    <section class="mb-8">
+    {{-- <section class="mb-8">
         <div class="flex justify-between bg-white p-4  mb-4 shadow">
             <h2 class="text-2xl font-bold">Lainnya</h2>
             <a href="/articlePages" class="text-purple-500 hover:text-purple-700 text-lg">View More</a>
@@ -120,7 +120,7 @@
                 </article>
             @endforeach
         </div>
-    </section>
+    </section> --}}
 
     <!-- Bulletin Story -->
     <section class="mb-10 px-3 sm:px-0">
