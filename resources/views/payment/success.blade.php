@@ -17,7 +17,7 @@
         <div class="flex justify-center mb-6 mt-3">
             <img src="{{ asset('images/success.png') }}" alt="Success Icon" class="w-24 h-24">
         </div>
-        <a href="{{ route('main') }}" class="py-2 px-6 bg-black text-white rounded-lg hover:bg-gray-800">Thank You</a>
+        <a href="{{ route('user.order_history', ['userId' => Auth::id()]) }}" class="py-2 px-6 bg-black text-white rounded-lg hover:bg-gray-800">Thank You</a>
     </div>
 </body>
 

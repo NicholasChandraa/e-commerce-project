@@ -8,6 +8,7 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
 use App\Models\Cart;
+use App\Models\OrderHistory;
 use App\Services\MidtransService;
 use Illuminate\Support\Facades\Log;
 
@@ -78,6 +79,15 @@ class CheckoutController extends Controller
                 'price' => $cartItem->product->price,
             ]);
             $orderItem->save();
+
+            OrderHistory::create([
+                'user_id' => $user->id,
+                'order_id' => $order->id,
+                'product_id' => $cartItem->product_id,
+                'quantity' => $cartItem->quantity,
+                'total_price' => $cartItem->product->price * $cartItem->quantity,
+                'order_status' => 'pending',
+            ]);
 
             $cartItem->product->reduceStock($cartItem->quantity);
         }

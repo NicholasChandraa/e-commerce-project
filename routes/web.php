@@ -11,6 +11,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ArticleCategoryController;
 use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\OrderHistoryController;
 
 Route::get('register', [AuthController::class, 'showRegistrationForm'])->name('register');
 Route::post('register', [AuthController::class, 'register']);
@@ -26,6 +27,10 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('categories', CategoryController::class);
         Route::resource('article-categories', ArticleCategoryController::class);
         Route::get('/manageArticles', [ArticleController::class, 'manage'])->name('manageArticles');
+
+        // ORDER HISTORY
+        Route::get('/admin/order-history', [OrderHistoryController::class, 'adminOrderHistory'])->name('admin.order_history');
+        Route::patch('/admin/order-history/{id}/update', [OrderHistoryController::class, 'updateOrderStatus'])->name('admin.update_order_status');
     });
 
     // Rute untuk user
@@ -77,5 +82,10 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/account/settings/change-password', [SettingsController::class, 'changePassword'])->name('account.settings.changePassword');
         Route::get('/account/settings/feedback', [SettingsController::class, 'feedbackForm'])->name('account.settings.feedbackForm');
         Route::post('/account/settings/feedback', [SettingsController::class, 'sendFeedback'])->name('account.settings.sendFeedback');
+
+
+        // ORDER HISTORY
+        Route::get('/user/order-history/{userId}', [OrderHistoryController::class, 'userOrderHistory'])->name('user.order_history');
+        
     });
 });
