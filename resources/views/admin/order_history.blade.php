@@ -79,7 +79,7 @@
                 <thead>
                     <tr>
                         <th class="py-2 px-4 border-b">Order ID</th>
-                        <th class="py-2 px-4 border-b">User ID</th>
+                        <th class="py-2 px-4 border-b">Nama</th>
                         <th class="py-2 px-4 border-b">Gambar Produk</th>
                         <th class="py-2 px-4 border-b">Nama Produk</th>
                         <th class="py-2 px-4 border-b">Jumlah</th>
@@ -94,7 +94,7 @@
                         @foreach ($order->orderItems as $item)
                             <tr>
                                 <td class="py-2 px-4 border-b" data-label="Order ID">{{ $order->id }}</td>
-                                <td class="py-2 px-4 border-b" data-label="User ID">{{ $order->user_id }}</td>
+                                <td class="py-2 px-4 border-b" data-label="User ID">{{ $order->name }}</td>
                                 <td class="py-2 px-4 border-b" data-label="Product Image">
                                     <img src="{{ asset('storage/' . $item->product->image) }}" alt="{{ $item->product->name }}">
                                 </td>
@@ -123,17 +123,5 @@
             </table>
         </div>
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const burger = document.getElementById('burger');
-            const mobileMenu = document.getElementById('mobile-menu');
-
-            burger.addEventListener('click', function () {
-                mobileMenu.classList.toggle('hidden');
-            });
-        });
-    </script>
 </body>
-
 </html>
