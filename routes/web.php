@@ -12,6 +12,7 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ArticleCategoryController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\OrderHistoryController;
+use App\Http\Controllers\InvoiceController;
 
 Route::get('register', [AuthController::class, 'showRegistrationForm'])->name('register');
 Route::post('register', [AuthController::class, 'register']);
@@ -87,5 +88,13 @@ Route::middleware(['auth'])->group(function () {
         // ORDER HISTORY
         Route::get('/user/order-history/{userId}', [OrderHistoryController::class, 'userOrderHistory'])->name('user.order_history');
         
+        // ROUTE INVOICE
+        Route::get('/invoice/{order}', [InvoiceController::class, 'show'])->name('invoice.show');
+
+        // Route callback pembayaran dari Midtrans
+        Route::post('/payment/callback', [CheckoutController::class, 'paymentCallback'])->name('payment.callback');
+
+        // Route admin untuk update nomor resi
+        Route::put('/admin/orders/{order}/update-resi', [App\Http\Controllers\OrderHistoryController::class, 'updateResi'])->name('admin.update_resi');
     });
 });

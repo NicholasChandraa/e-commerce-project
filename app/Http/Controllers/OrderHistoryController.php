@@ -37,4 +37,35 @@ class OrderHistoryController extends Controller
 
         return redirect()->route('admin.order_history')->with('success', 'Order status updated successfully.');
     }
+
+    public function updateResi(Request $request, Order $order)
+    {
+        $request->validate([
+            'resi_number' => 'required|string|max:255'
+        ]);
+
+        // Debugging
+        logger()->info('Updating resi', [
+            'order_id' => $order->id,
+            'resi' => $request->resi_number,
+            'request' => $request->all()
+        ]);
+
+        try {
+            $order->update([
+                'resi_number' => $request->resi_number,
+                'status' => 'dikirim'
+            ]);
+            
+            logger()->info('Update successful', $order->toArray());
+            return back()->with('success', 'Nomor resi berhasil diperbarui');
+            
+        } catch (\Exception $e) {
+            logger()->error('Update failed', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+            return back()->with('error', 'Gagal memperbarui nomor resi: '.$e->getMessage());
+        }
+    }
 }

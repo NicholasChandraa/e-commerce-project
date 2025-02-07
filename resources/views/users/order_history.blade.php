@@ -34,10 +34,12 @@
                             <thead>
                                 <tr>
                                     <th class="py-2 px-4 border-b">Gambar</th>
-                                    <th class="py-2 px-4 border-b">Produk</th>
-                                    <th class="py-2 px-4 border-b">Jumlah</th>
+                                    <th class="py-2 px-2 border-b">Produk</th>
+                                    <th class="py-2 px-2 border-b">Jumlah</th>
                                     <th class="py-2 px-4 border-b">Total Harga</th>
                                     <th class="py-2 px-4 border-b">Status</th>
+                                    <th class="py-2 px-4 border-b">Invoice</th>
+                                    <th class="py-2 px-4 border-b">No. Resi</th>
                                     <th class="py-2 px-4 border-b">Tanggal</th>
                                 </tr>
                             </thead>
@@ -52,6 +54,16 @@
                                             <td class="py-2 px-4 border-b">{{ $item->quantity }}</td>
                                             <td class="py-2 px-4 border-b">{{ 'Rp. ' . number_format($item->price, 0, ',', '.') }}</td>
                                             <td class="py-2 px-4 border-b">{{ $order->status }}</td>
+                                            <td class="py-2 px-4 border-b">
+                                            @if ($order->invoice_number)
+                                                <a href="{{ route('invoice.show', $order->id) }}" class="text-blue-500">
+                                                    <i class="fas fa-file-invoice"></i> {{ $order->invoice_number }}
+                                                </a>
+                                            @else
+                                                <span class="text-gray-500">Belum Tersedia</span>
+                                            @endif
+                                            </td>
+                                            <td class="py-2 px-4 border-b">{{ $order->resi_number ?? 'Belum Tersedia' }}</td> 
                                             <td class="py-2 px-4 border-b">{{ strftime('%d %B %Y', strtotime($order->created_at)) }}</td>
                                         </tr>
                                     @endforeach
@@ -64,23 +76,35 @@
                             @foreach ($order->orderItems as $item)
                                 <div class="bg-white shadow-md rounded-lg mb-4 p-4">
                                     <div class="mb-2">
-                                        <span class="font-bold">Gambar:</span>
+                                        <span class="font-bold">Gambar :</span>
                                         <img src="{{ asset('storage/' . $item->product->image) }}" alt="{{ $item->product->name }}" class="w-10 h-10 object-cover">
                                     </div>
                                     <div class="mb-2">
-                                        <span class="font-bold">Produk:</span> {{ $item->product->name }}
+                                        <span class="font-bold">Produk :</span> {{ $item->product->name }}
                                     </div>
                                     <div class="mb-2">
-                                        <span class="font-bold">Jumlah:</span> {{ $item->quantity }}
+                                        <span class="font-bold">Jumlah :</span> {{ $item->quantity }}
                                     </div>
                                     <div class="mb-2">
-                                        <span class="font-bold">Total Harga:</span> {{ 'Rp. ' . number_format($item->price, 0, ',', '.') }}
+                                        <span class="font-bold">Total Harga :</span> {{ 'Rp. ' . number_format($item->price, 0, ',', '.') }}
                                     </div>
                                     <div class="mb-2">
-                                        <span class="font-bold">Status:</span> {{ $order->status }}
+                                        <span class="font-bold">Status : </span> {{ $order->status }}
+                                    </div>
+                                    <div class="mb-2">
+                                        <span class="font-bold">Invoice Number :</span> @if ($order->invoice_number)
+                                                <a href="{{ route('invoice.show', $order->id) }}" class="text-blue-500">
+                                                    <i class="fas fa-file-invoice"></i> {{ $order->invoice_number }}
+                                                </a>
+                                            @else
+                                                <span class="text-gray-500">Belum Tersedia</span>
+                                            @endif
+                                    </div>
+                                    <div class="mb-2">
+                                        <span class="font-bold">Resi Number : </span> {{ $order->resi_number ?? "Belum Tersedia" }}
                                     </div>
                                     <div>
-                                        <span class="font-bold">Tanggal:</span> {{ strftime('%d %B %Y', strtotime($order->created_at)) }}
+                                        <span class="font-bold">Tanggal : </span> {{ strftime('%d %B %Y', strtotime($order->created_at)) }}
                                     </div>
                                 </div>
                             @endforeach

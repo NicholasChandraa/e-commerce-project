@@ -21,6 +21,7 @@ class Order extends Model
         'postal_code',
         'total',
         'status',
+        'resi_number'
     ];
 
     public function orderItems()

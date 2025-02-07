@@ -84,6 +84,8 @@
                         <th class="py-2 px-4 border-b">Nama Produk</th>
                         <th class="py-2 px-4 border-b">Jumlah</th>
                         <th class="py-2 px-4 border-b">Total Harga</th>
+                        <th class="py-2 px-4 border-b">Invoice Number</th>
+                        <th class="py-2 px-4 border-b">Nomor Resi</th>
                         <th class="py-2 px-4 border-b">Status</th>
                         <th class="py-2 px-4 border-b">Tanggal</th>
                         <th class="py-2 px-4 border-b">Aksi</th>
@@ -101,6 +103,48 @@
                                 <td class="py-2 px-4 border-b" data-label="Product Name">{{ $item->product->name }}</td>
                                 <td class="py-2 px-4 border-b" data-label="Quantity">{{ $item->quantity }}</td>
                                 <td class="py-2 px-4 border-b" data-label="Total Price">{{ 'Rp. ' . number_format($item->price, 0, ',', '.') }}</td>
+                                <td class="py-2 px-4 border-b" data-label="Invoice Number">{{ $order->invoice_number ?? 'Belum ada' }}</td>
+                                <td class="py-2 px-4 border-b" data-label="Resi Number">
+                                    <div class="resi-container">
+                                        <!-- View Mode -->
+                                        <div class="view-mode flex items-center gap-2">
+                                            <span class="resi-display">
+                                                {{ $order->resi_number ?? 'Belum ada' }}
+                                            </span>
+                                            <button onclick="toggleEdit(this)" 
+                                                    class="text-indigo-600 hover:text-indigo-900">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                        </div>
+
+                                        <!-- Edit Mode (Hidden Initially) -->
+                                        <form class="edit-mode hidden flex gap-2 items-center" 
+                                            action="{{ route('admin.update_resi', $order) }}" 
+                                            method="POST">
+                                            @csrf
+                                            @method('PUT')
+                                            
+                                            <input type="text" 
+                                                name="resi_number" 
+                                                value="{{ $order->resi_number ?? '' }}"
+                                                class="border p-1 w-32 md:w-48 text-sm rounded"
+                                                placeholder="Masukkan resi"
+                                                required>
+                                            
+                                            <div class="flex gap-1">
+                                                <button type="submit" 
+                                                        class="bg-green-500 text-white px-2 py-1 text-sm rounded hover:bg-green-600">
+                                                    <i class="fas fa-check"></i>
+                                                </button>
+                                                <button type="button" 
+                                                        onclick="cancelEdit(this)"
+                                                        class="bg-red-500 text-white px-2 py-1 text-sm rounded hover:bg-red-600">
+                                                    <i class="fas fa-times"></i>
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </td>
                                 <td class="py-2 px-4 border-b" data-label="Status">{{ $order->status }}</td>
                                 <td class="py-2 px-4 border-b" data-label="Date">{{ strftime('%d %B %Y', strtotime($order->created_at)) }}</td>
                                 <td class="py-2 px-4 border-b" data-label="Actions">
@@ -124,4 +168,17 @@
         </div>
     </div>
 </body>
+<script>
+    function toggleEdit(button) {
+        const container = button.closest('.resi-container');
+        container.querySelector('.view-mode').classList.add('hidden');
+        container.querySelector('.edit-mode').classList.remove('hidden');
+    }
+
+    function cancelEdit(button) {
+        const container = button.closest('.resi-container');
+        container.querySelector('.edit-mode').classList.add('hidden');
+        container.querySelector('.view-mode').classList.remove('hidden');
+    }
+</script>
 </html>

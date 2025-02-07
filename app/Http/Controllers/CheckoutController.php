@@ -66,9 +66,14 @@ class CheckoutController extends Controller
             'city' => $request->city,
             'postal_code' => $request->postal_code,
             'total' => $totalAmount,
-            'status' => 'pending',
+            'status' => 'paid',
         ]);
 
+        $order->save();
+
+        // Generate invoice number
+        $invoiceNumber = 'INV-' . str_pad($order->id, 6, '0', STR_PAD_LEFT) . '-' . date('Ymd');
+        $order->invoice_number = $invoiceNumber;
         $order->save();
 
         foreach ($cart->cartItems as $cartItem) {
@@ -86,12 +91,14 @@ class CheckoutController extends Controller
                 'product_id' => $cartItem->product_id,
                 'quantity' => $cartItem->quantity,
                 'total_price' => $cartItem->product->price * $cartItem->quantity,
-                'order_status' => 'pending',
+                'order_status' => 'paid',
             ]);
 
+            // Kurangi stok produk
             $cartItem->product->reduceStock($cartItem->quantity);
         }
 
+        // Hapus item dari cart
         $cart->cartItems()->delete();
 
         $params = [
@@ -125,4 +132,5 @@ class CheckoutController extends Controller
 
         return view('checkout.payment', compact('snapToken', 'order'));
     }
+
 }
